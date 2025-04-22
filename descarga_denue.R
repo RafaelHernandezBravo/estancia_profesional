@@ -3,6 +3,12 @@
 # ESTABLECER DIRECTORIO DE TRABAJO
 # ver contenido del directorio 
 df = read.csv("diccionario_denue_11_2024.csv", encoding = "latin1")
+# Creando directorio denue
+dir_path = "denue_11_2024"
+if (dir.exists(dir_path)) {
+  unlink(dir_path, recursive = TRUE)
+}
+dir.create(dir_path)
 
 # LOOP MEJORADO
 options(timeout = 600)
