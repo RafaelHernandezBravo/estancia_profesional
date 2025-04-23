@@ -17,4 +17,4 @@ Z = lapply(1:length(A), fx)
 nombres = gsub(gsub(A, pattern = ".+/", replacement = ""), pattern = "(_|).csv", replacement = "")
 ueconomicas = gsub(gsub(A, pattern = "\\./conjunto.+", replacement = ""), pattern = ".+/", replacement = "")
 names(Z) = nombres
-saveRDS(Z, "NOMBRE.rds")
+save(Z, file = "NOMBRE.RData")

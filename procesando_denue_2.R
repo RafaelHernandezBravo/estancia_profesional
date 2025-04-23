@@ -1,7 +1,7 @@
 df = read.csv("diccionario_denue_11_2024.csv", encoding = "latin1")
 # Obtener la lista de archivos .csv
-lista_archivos = list.files(path = "denue_11_2024", pattern = "",full.names = T, recursive = T)
-load("NOMBRE.rds")
+# lista_archivos = list.files(path = "denue_11_2024", pattern = "",full.names = T, recursive = T)
+load("NOMBRE.RData")
 # Verificando si hay que unir al comercio al pormenor (4 csv), otros servicios no
 # gubernamentales (2 csv) o alojamientos y alimentación (2 csv)
 
