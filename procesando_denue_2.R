@@ -82,6 +82,7 @@ catalogo1 = data.frame("nombre_abreviado" = c("Comercio al pormenor", "Servicios
 catalogo = rbind(catalogo0, catalogo1)
 catalogo$csv = factor(catalogo$csv, levels = names(Z))
 catalogo = catalogo[order(catalogo$csv),]
+write.csv(catalogo, "catalogo_act_eco_clave.csv", row.names =F)
 colnames(DB0) = catalogo$nombre_abreviado
 rownames(DB0) = gsub("_","",rownames(DB0))
 DB0[is.na(DB0)] = 0
