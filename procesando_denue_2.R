@@ -47,11 +47,13 @@ Z[[19]] = db_servicios_no_gubernamentales
 names(Z)[19] = "denue_inegi_81"
 Z[[20]] = db_alojamiento
 names(Z)[20] = "denue_inegi_72"
-# Transformar de TABLE a Data.frame.matrix, Realizar un Merge --> (Outter join) y Checar lo de Comercio al por menor para ver si es combeniente hacer un bine  
+# Transformar de TABLE a Data.frame.matrix, Realizar un Merge --> (Outter join)
+# y Checar lo de Comercio al por menor para ver si es combeniente hacer un bine  
 # El 1 sum los totales de las filas y el 2 sum los totales de las columnas 
 apply(Z[[1]],1,sum)
 
-# A continuación calculamos los totales por municipio de cada una de las 25 categoríaa de actividades económicas
+# A continuación calculamos los totales por municipio de cada una de las 
+# 25 categoríaa de actividades económicas
 list_DB = list()
 for (i in 1:length(Z)){
   print(i)
@@ -60,6 +62,7 @@ for (i in 1:length(Z)){
   print(head(DB))
 }
 
+# Outter join de todas las actividades económicas
 DB0 = merge(list_DB[[1]], list_DB[[2]], by = 0, all = T)
 rownames(DB0) = DB0$Row.names
 DB0$Row.names = NULL
@@ -71,8 +74,15 @@ for (i in 3:length(list_DB)) {
   print(dim(DB0))
 }
 
-colnames(DB0) = gsub("/|denue_inegi_|_.csv","",gsub(path, "", A))
+# Arreglando nombres de columnas para interpretar PCA
+catalogo0 = df[-c(5:8,14:17), c("nombre_abreviado", "csv")]
+catalogo0$csv = gsub(paste0("denue_inegi_",gsub(catalogo0$csv, pattern = "^_00_|_$", replacement = "")), pattern = "31_33", replacement = "31-33")
+catalogo1 = data.frame("nombre_abreviado" = c("Comercio al pormenor", "Servicios no gubernamentales", "Servicios de alojamiento y alimentación"),
+                       "csv" = c("denue_inegi_46111-46911", "denue_inegi_81", "denue_inegi_72"))
+catalogo = rbind(catalogo0, catalogo1)
+catalogo$csv = factor(catalogo$csv, levels = names(Z))
+catalogo = catalogo[order(catalogo$csv),]
+colnames(DB0) = catalogo$nombre_abreviado
 rownames(DB0) = gsub("_","",rownames(DB0))
 DB0[is.na(DB0)] = 0
-
-
+write.csv(DB0, "actividades_económicas_por_municipio.csv", row.names = F)
