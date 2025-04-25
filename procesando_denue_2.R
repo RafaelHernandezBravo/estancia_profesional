@@ -85,4 +85,4 @@ catalogo = catalogo[order(catalogo$csv),]
 colnames(DB0) = catalogo$nombre_abreviado
 rownames(DB0) = gsub("_","",rownames(DB0))
 DB0[is.na(DB0)] = 0
-write.csv(DB0, "actividades_económicas_por_municipio.csv", row.names = F)
+write.csv(DB0, "actividades_económicas_por_municipio.csv")

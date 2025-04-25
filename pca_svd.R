@@ -1,29 +1,17 @@
-getwd()
 library(FactoMineR)
-library(Factoshiny)
-library(missMDA)
-library(FactoInvestigate)
-library(Rcmdr)
-pdf("PCA.pdf")
 
-require(FactoMineR)
+# Actividades económicas como columnas, municipios como filas
+DB0 = read.csv("actividades_económicas_por_municipio.csv",colClasses = c("character", rep("numeric", 20)))
+rownames(DB0) = DB0$X
+DB0$X = NULL
+
 X=PCA(DB0)
-DB0_trans = t(DB0)
-X_trans = PCA(DB0_trans)
+plot.PCA(X, choix = "var", axes = c(2,3))
+
+# Municipios como columnas, actividades económicas como filas
+DB0_trans = as.data.frame(t(DB0))
+X_trans = PCA(DB0_trans, ncp = 10)
 X_trans$eig
-loadings = X_trans$var$coord
+loadings = as.data.frame(as.matrix(X_trans$var$coord))
 
-##
-X$svd$U
-corrplot(X$svd$V)
-cor(X$svd$V)
-
-### EDICION PENDIENTE
-library(corrplot)
-df$nombres_columnas = gsub(df$csv, pattern = "_00_|_$", replace = "")
-DB0_trans = t(DB0)
-DB0_trans_nombres = merge(DB0_trans, df[,c("nombres_columnas", "Act...Economica")], by.x = 0, by.y = "nombres_columnas")
-rownames(DB0_trans_nombres) = DB0_trans_nombres$Act...Economica
-DB0_trans_nombres$Row.names = NULL
-DB0_trans_nombres$Act...Economica = NULL
-corrplot(cor(t(DB0_trans_nombres)))
+write.csv(loadings, "factor_loadings_mpos_PCA.csv", row.names = T)
