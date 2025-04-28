@@ -1,0 +1,36 @@
+---
+title: "Reporte estancia profesional"
+author: "Rafael"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+### Lugar de la estancia: Centro de Ciencias de la Complejidad, Laboratorio del Gabo
+
+#### Índice de contenidos
+
+1. Descarga automatizada del DENUE
+2. Procesamiento y estructuración de los datos
+3. Construcción del shapefile con la información recabada
+4. Análisis de componentes principales de los datos
+
+### 1. Descarga automatizada de la DENUE
+
+El DENUE es un directorio de u
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
