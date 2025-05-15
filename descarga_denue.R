@@ -11,7 +11,7 @@ if (dir.exists(dir_path)) {
 dir.create(dir_path)
 
 # LOOP MEJORADO
-options(timeout = 600)
+options(timeout = 900)
 
 for (i in 1:nrow(df)) {
   print(i)
